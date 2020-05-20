@@ -22,8 +22,13 @@ const db = firebase.database();
 try {
     db.ref('zodiac/ru64/Sagittarius/europe_london/daily').once('value')
         .then(snapshot => {
-            let buff = Buffer.from(snapshot.val().commonHoroscope, 'base64');
-            console.log(buff.toString('utf-8'))
+            let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
+            let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
+                let decodedArray = horoscopeArray.map(h => {
+                    let processVar = Buffer.from(h, 'base64');
+                    return processVar.toString('utf-8')
+                });
+            console.log(decodedArray)
         })
         .catch(err => console.log(err))
 }
@@ -34,11 +39,17 @@ catch (e) {
 router.get('/daily', async (req, res) => {
     let zodiac = req.params.zodiac;
     let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/daily/`).once('value');
-    res.send(snapshot)
+
+    let {commonHoroscope, familyHoroscope, healthHoroscope} = snapshot.val();
+    let horoscopeArray = [commonHoroscope, familyHoroscope, healthHoroscope];
+    let decodedArray = horoscopeArray.map(h => Buffer.from(h, 'base64'));
+    let buff = Buffer.from(snapshot.val().commonHoroscope, 'base64');
+    res.send(horoscopeArray.map(h => Buffer.from(h, 'base64')))
 });
 router.get('/month', async (req, res) => {
     let month = req.query.month;
-    let snapshot = await db.ref('zodiac/ru64/Saggittarius/europe_london/August')
+    let zodiac = req.query.zodiac;
+    let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/${month}`)
 });
 
 router.listen(port, () => {
