@@ -40,7 +40,7 @@ router.get('/daily', async (req, res) => {
     let zodiac = req.params.zodiac;
     let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/daily/`).once('value');
 
-    res.send(zodiac)
+    res.json({data: zodiac})
     // let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
     // let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
     // let decodedArray = horoscopeArray.map(h => Buffer.from(h, 'base64'));
