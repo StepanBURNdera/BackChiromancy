@@ -2,6 +2,7 @@ const express = require('express');
 const firebase = require('firebase');
 
 const router = express();
+const port = process.env.PORT;
 
 //router.use(bodyParser.json());
 
@@ -40,6 +41,6 @@ router.get('/month', async (req, res) => {
     let snapshot = await db.ref('zodiac/ru64/Saggittarius/europe_london/August')
 });
 
-router.listen(8000, () => {
-    console.log('app ready')
+router.listen(port, () => {
+    console.log('app ready on port: ' + port)
 });
