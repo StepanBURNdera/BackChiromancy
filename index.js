@@ -1,10 +1,12 @@
 const express = require('express');
 const firebase = require('firebase');
+const cors = require('cors');
 
 const router = express();
 const port = process.env.PORT;
 
-//router.use(bodyParser.json());
+router.use(cors());
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDjbTP_gBKvb23HMTLBUqtFYljzB1Hr68c",
