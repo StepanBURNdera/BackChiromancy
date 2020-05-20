@@ -37,10 +37,10 @@ catch (e) {
 }
 
 router.get('/daily', async (req, res) => {
-    let zodiac = req.params.zodiac;
+    let zodiac = req.query.zodiac;
     let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/daily/`).once('value');
 
-    res.json({data: zodiac})
+    res.send({data: zodiac})
     // let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
     // let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
     // let decodedArray = horoscopeArray.map(h => Buffer.from(h, 'base64'));
