@@ -63,17 +63,17 @@ router.get('/week', async (req,res) => {
     }))
 });
 router.get('/month', async (req, res) => {
-     let zodiac = req.query.zodiac;
-    // let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/${month}`).once('value');
-    //
-    // let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
-    // let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
-    //
-    // res.send(horoscopeArray.map(h => {
-    //     let processVar = Buffer.from(h, 'base64');
-    //     return processVar.toString('utf-8')
-    // }))
-    res.send({zodiac})
+    let zodiac = req.query.zodiac;
+    let month = req.query.month;
+    let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/${month}`).once('value');
+
+    let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
+    let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
+
+    res.send(horoscopeArray.map(h => {
+        let processVar = Buffer.from(h, 'base64');
+        return processVar.toString('utf-8')
+    }));
 });
 
 router.listen(port, () => {
