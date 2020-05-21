@@ -63,7 +63,6 @@ router.get('/week', async (req,res) => {
     }))
 });
 router.get('/month', async (req, res) => {
-     let month = req.query.month;
      let zodiac = req.query.zodiac;
     // let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/${month}`).once('value');
     //
@@ -74,7 +73,7 @@ router.get('/month', async (req, res) => {
     //     let processVar = Buffer.from(h, 'base64');
     //     return processVar.toString('utf-8')
     // }))
-    res.send({month, zodiac})
+    res.send({zodiac})
 });
 
 router.listen(port, () => {
