@@ -22,7 +22,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 try {
-    db.ref('zodiac/ru64/Sagittarius/europe_london/May').once('value')
+    db.ref('zodiac/ru64/Scorpio/europe_london/May').once('value')
         .then(snapshot => {
             let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
             let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
@@ -65,7 +65,7 @@ router.get('/week', async (req,res) => {
 router.get('/month', async (req, res) => {
     let zodiac = req.query.zodiac;
     let month = req.query.month;
-    let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/${month}`).once('value');
+    let snapshot = await db.ref(`zodiac/ru64/${zodiac}/europe_london/May`).once('value');
 
     let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
     let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
