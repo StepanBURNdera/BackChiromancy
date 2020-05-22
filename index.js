@@ -22,7 +22,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 try {
-    db.ref('zodiac/ru64/Sagittarius/europe_london/week').once('value')
+    db.ref('zodiac/ru64/Sagittarius/europe_london/May').once('value')
         .then(snapshot => {
             let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
             let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
@@ -30,7 +30,7 @@ try {
                     let processVar = Buffer.from(h, 'base64');
                     return processVar.toString('utf-8')
                 });
-            console.log(decodedArray)
+            console.log(snapshot.val())
         })
         .catch(err => console.log(err))
 }
