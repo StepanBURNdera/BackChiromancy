@@ -22,15 +22,16 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 try {
-    db.ref('zodiac/ru64/Scorpio/europe_london/May').once('value')
+    db.ref('chiromancer/text/ru64').once('value')
         .then(snapshot => {
-            let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
-            let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
-                let decodedArray = horoscopeArray.map(h => {
-                    let processVar = Buffer.from(h, 'base64');
-                    return processVar.toString('utf-8')
-                });
-            console.log(snapshot.val())
+            let res = snapshot.val();
+            // let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
+            // let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
+            //     let decodedArray = horoscopeArray.map(h => {
+            //         let processVar = Buffer.from(h, 'base64');
+            //         return processVar.toString('utf-8')
+            //     });
+            console.log(res)
         })
         .catch(err => console.log(err))
 }
@@ -74,6 +75,10 @@ router.get('/month', async (req, res) => {
         let processVar = Buffer.from(h, 'base64');
         return processVar.toString('utf-8')
     }));
+});
+router.get('/palmistry', async (req, res) => {
+    let snapshot = await db.ref('chiromancer/text/ru64').once('value');
+    res.send(snapshot.val())
 });
 
 router.listen(port, () => {
