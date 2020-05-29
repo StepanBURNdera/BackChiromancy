@@ -25,12 +25,7 @@ try {
     db.ref('chiromancer/text/ru64').once('value')
         .then(snapshot => {
             let res = snapshot.val();
-            // let {commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope} = snapshot.val();
-            // let horoscopeArray = [commonHoroscope, loveHoroscope, healthHoroscope, personalHoroscope];
-            //     let decodedArray = horoscopeArray.map(h => {
-            //         let processVar = Buffer.from(h, 'base64');
-            //         return processVar.toString('utf-8')
-            //     });
+
             console.log(res)
         })
         .catch(err => console.log(err))
