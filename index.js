@@ -83,16 +83,16 @@ router.get('/palmistry', async (req, res) => {
 router.get('/compatibility', async (req, res) => {
     let zodiac_first = req.query.zodiac_first;
     let zodiac_second = req.query.zodiac_second;
-    let snapshot = await db.ref(`compatibility/ru64/${zodiac_first}/${zodiac_second}`);
+    let snapshot = await db.ref(`compatibility/ru64/${zodiac_first}/${zodiac_second}`).once('value');
 
-    //let result = snapshot.val();
+    let result = snapshot.val();
 
     console.log(snapshot);
 
     res.send({
-        // ...result,
-        // body: Buffer.from(result.body, 'base64').toString(),
-        // unionName: Buffer.from(result.unionName, 'base64').toString(),
+        ...result,
+        body: Buffer.from(result.body, 'base64').toString(),
+        unionName: Buffer.from(result.unionName, 'base64').toString(),
         req: req.query
     })
 });
