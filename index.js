@@ -90,9 +90,10 @@ router.get('/compatibility', async (req, res) => {
     console.log(req.query);
 
     res.send({
-        ...result,
-        body: Buffer.from(result.body, 'base64').toString(),
-        unionName: Buffer.from(result.unionName, 'base64').toString(),
+        // ...result,
+        // body: Buffer.from(result.body, 'base64').toString(),
+        // unionName: Buffer.from(result.unionName, 'base64').toString(),
+        req: req.query
     })
 });
 
