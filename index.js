@@ -28,6 +28,7 @@ try {
 
             console.log({
                 ...res,
+                type: typeof snapshot.val,
                 body: Buffer.from(res.body, 'base64').toString(),
                 unionName: Buffer.from(res.unionName, 'base64').toString(),
             })
@@ -85,6 +86,8 @@ router.get('/compatibility', async (req, res) => {
     let snapshot = await db.ref(`compatibility/ru64/${zodiac_first}/${zodiac_second}`);
 
     let result = snapshot.val();
+
+    console.log(req.query);
 
     res.send({
         ...result,
