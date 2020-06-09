@@ -84,10 +84,12 @@ router.get('/compatibility', async (req, res) => {
     let zodiac_second = req.query.zodiac_second;
     let snapshot = await db.ref(`compatibility/ru64/${zodiac_first}/${zodiac_second}`);
 
+    let result = snapshot.val();
+
     res.send({
-        ...snapshot.val(),
-        body: Buffer.from(snapshot.val().body, 'base64').toString(),
-        unionName: Buffer.from(snapshot.val().unionName, 'base64').toString(),
+        ...result,
+        body: Buffer.from(result.body, 'base64').toString(),
+        unionName: Buffer.from(result.unionName, 'base64').toString(),
     })
 });
 
