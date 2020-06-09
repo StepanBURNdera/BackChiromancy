@@ -22,11 +22,15 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
 try {
-    db.ref('chiromancer/text/ru64').once('value')
+    db.ref('compatibility/ru64/Aries/Aries').once('value')
         .then(snapshot => {
             let res = snapshot.val();
 
-            console.log(res)
+            console.log({
+                ...res,
+                body: Buffer.from(res.body, 'base64').toString(),
+                unionName: Buffer.from(res.unionName, 'base64').toString(),
+            })
         })
         .catch(err => console.log(err))
 }
@@ -74,6 +78,17 @@ router.get('/month', async (req, res) => {
 router.get('/palmistry', async (req, res) => {
     let snapshot = await db.ref('chiromancer/text/ru64').once('value');
     res.send(snapshot.val())
+});
+router.get('/compatibility', async (req, res) => {
+    let zodiac_first = req.query.zodiac_first;
+    let zodiac_second = req.query.zodiac_second;
+    let snapshot = await db.ref(`compatibility/ru64/${zodiac_first}/${zodiac_second}`);
+
+    res.send({
+        ...snapshot.val(),
+        body: Buffer.from(snapshot.val().body, 'base64').toString(),
+        unionName: Buffer.from(snapshot.val().unionName, 'base64').toString(),
+    })
 });
 
 router.listen(port, () => {
