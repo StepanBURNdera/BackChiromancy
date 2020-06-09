@@ -87,7 +87,7 @@ router.get('/compatibility', async (req, res) => {
 
     //let result = snapshot.val();
 
-    console.log(req.query);
+    console.log(snapshot);
 
     res.send({
         // ...result,
